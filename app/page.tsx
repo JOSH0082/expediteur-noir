@@ -3,14 +3,29 @@ import headLineArt from "@/public/images/head-lineart.png";
 import daVinci from "@/public/images/da-vinci.png";
 import goldenRatio from "@/public/images/golden-ratio.png";
 import vitruvianMan from "@/public/images/vitruvian-man.png";
+import middleSelfPict from "@/public/images/middle-self-pict.png";
+import namePattern from "@/public/images/name-pattern.png";
+import sextantLogo from "@/public/images/sextant-logo.png";
 import Navbar from "@/components/Navbar";
 import StackedCard from "@/components/StackedCard";
+import ActionLinks from "@/components/ActionLinks";
+import AccordionGallery from '@/components/AccordionGallery'
 
 export default function Home() {
+
+  const items = [
+    { image: middleSelfPict.src, label: 'Personal Portofolio', subLabel: 'Visit Link', link: '#' },
+    { image: daVinci.src, label: 'Point Of Sales', subLabel: 'Visit Link', link: '#' },
+    { image: goldenRatio.src, label: 'El Kontoldon', subLabel: 'Visit Link', link: '#' },
+    { image: vitruvianMan.src, label: 'Koprasi Merah Putih', subLabel: 'Visit Link', link: '#' },
+    { image: headLineArt.src, label: 'L\'Expedition', subLabel: 'Visit Link', link: '#' },
+    { image: middleSelfPict.src, label: 'L\'Expedition', subLabel: 'Visit Link', link: '#' }
+  ];
+
   return (
-    <main className="px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48 py-4 md:py-6 flex flex-col gap-14 md:gap-24">
+    <main className="py-4 md:py-6 flex flex-col gap-14 md:gap-24">
       {/* Section 1: Hero (Includes Navbar within min-h-screen) */}
-      <section className="w-full min-h-screen flex flex-col justify-between relative pb-4 md:pb-6">
+      <section className="w-full min-h-screen flex flex-col justify-between relative pb-4 md:pb-6 px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
         {/* Navigation Bar */}
         <Navbar activeItem="Home" />
 
@@ -54,9 +69,7 @@ export default function Home() {
           {/* Bottom Row: Story (bottom left) & Secondary Philosophy Text (higher right, closer to tagline) */}
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 pb-2">
             <div className="flex flex-col justify-end md:self-end">
-              <p className="font-playfair text-foreground/70 text-sm md:text-base leading-relaxed">
-                Every living creature has it’s own story, these are mine. Not that interesting, yet worth a shot. This whole page might seems pretentious, I always wonder how people could make such a beautiful but pretentious web page.
-              </p>
+              <ActionLinks />
             </div>
             <div className="flex flex-col justify-start md:self-start -mt-2 md:-mt-4">
               <p className="font-playfair text-accent/85 text-sm md:text-base text-left md:text-right leading-relaxed">
@@ -67,8 +80,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 2: Da Vincian */}
-      <section className="w-full relative min-h-screen flex flex-col justify-between">
+      {/* Section 2: Joshua Siahaan */}
+      <section className="w-full relative min-h-screen flex items-center justify-center py-12 md:py-24 overflow-hidden px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-12 relative flex flex-col md:flex-row justify-between items-center md:items-stretch min-h-[700px]">
+          
+          {/* Left Area */}
+          <div className="w-full md:w-1/3 flex flex-col justify-between pt-12 md:pt-24 z-10 relative">
+            <div>
+              <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
+                L'Architecte
+              </h2>
+              <p className="font-playfair text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            
+            <div className="mt-20 md:mt-auto pb-10">
+              <Image
+                src={sextantLogo}
+                alt="Sextant Logo"
+                className="w-32 lg:w-48 h-auto object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Center Area */}
+          <div className="w-full md:w-1/3 flex justify-center items-center relative my-16 md:my-0">
+            {/* Name Pattern Background */}
+            <div className="absolute top-0 md:top-10 left-1/2 md:left-24 w-[280px] md:w-[380px] z-0 opacity-90 transform -translate-x-1/2 md:translate-x-0">
+              <Image
+                src={namePattern}
+                alt="Joshua Siahaan Pattern"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            
+            {/* Middle Self Portrait */}
+            <div className="relative z-10 w-[260px] md:w-[300px] lg:w-[320px] h-[400px] md:h-[480px] lg:h-[550px] rounded-[200px] overflow-hidden shadow-xl">
+              <Image
+                src={middleSelfPict}
+                alt="Joshua Siahaan Portrait"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 260px, 320px"
+              />
+            </div>
+          </div>
+
+          {/* Right Area */}
+          <div className="w-full md:w-1/3 flex flex-col justify-end pb-12 md:pb-32 z-10 relative">
+            <div className="md:ml-auto flex flex-col items-start md:items-end">
+              <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
+                L'Executeur
+              </h2>
+              <p className="font-playfair text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px] text-left md:text-right">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Section 3: Da Vincian */}
+      <section className="w-full relative min-h-screen flex flex-col justify-between px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
         <div className="grid grid-cols-1 lg:grid-cols-12 min-h-screen w-full items-stretch">
           {/* Left Column: Leonardo Da Vinci Portrait */}
           <div className="lg:col-span-5 relative w-full min-h-[450px] lg:min-h-full overflow-hidden">
@@ -118,6 +193,43 @@ export default function Home() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: L'expediton */}
+      <section className="w-full relative min-h-screen">
+
+        <div className="flex flex-col justify-center gap-20 w-full min-h-screen">
+          
+          <div className="flex flex-col justify-center items-center">
+            <h2 className="font-playfair-display font-semibold text-5xl sm:text-6xl lg:text-7xl text-foreground leading-[0.98] tracking-tight mb-5">L'Expedition</h2>
+            <p className="font-playfair text-xs sm:text-sm lg:text-base text-foreground/90 leading-relaxed max-w-md text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
+          </div>
+
+          <div className="w-full items-stretch">
+            
+
+            <AccordionGallery
+              items={items}
+              defaultIndex={2}
+              expandRatio={0.52}
+              trigger="hover"
+              accentColor="#ffffff"
+              overlayColor="#060010"
+              textColor="#ffffff"
+              grayscale
+              showLabels
+              duration={0.6}
+              ease="power3.out"
+              parallax={0.5}
+              tilt={0}
+              stagger={0.06}
+              height={460}
+              gap={1}
+              radius={0}
+              orientation="horizontal"
+            />
           </div>
         </div>
       </section>

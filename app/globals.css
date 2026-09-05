@@ -9,6 +9,7 @@
   /* Fonts */
   --font-playfair-display: var(--font-playfair-display), serif;
   --font-playfair: var(--font-playfair), serif;
+  --font-redacted-script: var(--font-redacted-script), cursive;
 }
 
 :root {
