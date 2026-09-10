@@ -16,7 +16,7 @@ const playfair = Playfair({
 
 const redactedScript = Redacted_Script({
   subsets: ["latin"],
-  variable: "--font-redacted",
+  variable: "--font-redacted-script",
   weight: ["400"],
 });
 

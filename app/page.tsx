@@ -30,7 +30,7 @@ export default function Home() {
         <Navbar activeItem="Home" />
 
         {/* Hero Content Wrapper */}
-        <div className="flex-1 flex flex-col relative gap-6 pt-2">
+        <div className="flex-1 flex flex-col relative justify-around gap-6 sm:gap-0 pt-2">
           {/* Background Lineart */}
           <div className="absolute inset-0 z-[-1] flex justify-center items-center pointer-events-none opacity-80">
             <Image
@@ -42,9 +42,9 @@ export default function Home() {
           </div>
 
           {/* Top Row: Intro Philosophy (closer to headline) + Author Card Slot (higher up) */}
-          <div className="w-full flex flex-col md:flex-row justify-between items-start gap-6 pt-2">
-            <div className="w-full md:w-1/2 flex flex-col justify-end md:self-end pt-4 md:pt-10">
-              <p className="font-playfair text-foreground/70 text-sm md:text-base leading-relaxed">
+          <div className="w-full flex flex-row justify-between items-start gap-6 pt-2">
+            <div className="w-1/2 flex flex-col justify-end md:self-end p-4  md:pt-10 border-1 border-foreground/15 sm:border-none">
+              <p className="font-redacted-script sm:font-playfair text-foreground/70 font-semibold text-[8px] sm:text-sm md:text-base leading-relaxed">
                 I believe that the boundaries between disciplines are merely illusions. Embracing a DaVincian philosophy, I navigate life as an explorer—refusing to be anchored to a single domain. My curiosity spans from the rigid logic of structural code to the fluid harmonies of musical improvisation and the precise strokes of visual realism. Art and engineering are not opposing forces; they are the twin lenses through which I decode, deconstruct, and reshape the world around me.
               </p>
             </div>
@@ -61,18 +61,24 @@ export default function Home() {
 
           {/* Middle Row: Main Tagline */}
           <div className="py-2 md:py-4 text-center">
-            <h1 className="font-playfair-display font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[96px] xl:text-[112px] leading-tight tracking-tight text-foreground">
+            <h1 className="font-playfair-display font-bold text-4xl sm:text-6xl md:text-7xl lg:text-[96px] xl:text-[112px] leading-tight tracking-tight text-foreground border-1 border-foreground/15 sm:border-none p-2">
               Limité, Lié, et <span className="text-accent">Deviént.</span>
             </h1>
           </div>
 
           {/* Bottom Row: Story (bottom left) & Secondary Philosophy Text (higher right, closer to tagline) */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 pb-2">
+          <div className="w-full h-full flex flex-row gap-4 sm:gap-0 sm:justify-between">
             <div className="flex flex-col justify-end md:self-end">
               <ActionLinks />
             </div>
-            <div className="flex flex-col justify-start md:self-start -mt-2 md:-mt-4">
-              <p className="font-playfair text-accent/85 text-sm md:text-base text-left md:text-right leading-relaxed">
+            <div className="w-full sm:w-1/2 flex flex-col justify-start md:self-start -mt-2 md:-mt-4 border-1 border-foreground/15 sm:border-none p-2">
+              <p className="font-redacted-script sm:font-playfair text-accent/85 text-[8px] sm:text-sm md:text-base text-right md:text-right leading-relaxed">
+                I believe that the boundaries between disciplines are merely illusions. Embracing a DaVincian philosophy, I navigate life as an explorer—refusing to be anchored to a single domain. My curiosity spans from the rigid logic of structural code to the fluid harmonies of musical improvisation and the precise strokes of visual realism. Art and engineering are not opposing forces; they are the twin lenses through which I decode, deconstruct, and reshape the world around me.
+              </p>
+              <p className="block sm:hidden font-redacted-script sm:font-playfair text-accent/85 text-[8px] sm:text-sm md:text-base text-right md:text-right leading-relaxed">
+                I believe that the boundaries between disciplines are merely illusions. Embracing a DaVincian philosophy, I navigate life as an explorer—refusing to be anchored to a single domain. My curiosity spans from the rigid logic of structural code to the fluid harmonies of musical improvisation and the precise strokes of visual realism. Art and engineering are not opposing forces; they are the twin lenses through which I decode, deconstruct, and reshape the world around me.
+              </p>
+              <p className="block sm:hidden font-redacted-script sm:font-playfair text-accent/85 text-[8px] sm:text-sm md:text-base text-right md:text-right leading-relaxed">
                 I believe that the boundaries between disciplines are merely illusions. Embracing a DaVincian philosophy, I navigate life as an explorer—refusing to be anchored to a single domain. My curiosity spans from the rigid logic of structural code to the fluid harmonies of musical improvisation and the precise strokes of visual realism. Art and engineering are not opposing forces; they are the twin lenses through which I decode, deconstruct, and reshape the world around me.
               </p>
             </div>
@@ -90,7 +96,7 @@ export default function Home() {
               <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
                 L'Architecte
               </h2>
-              <p className="font-playfair text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px]">
+              <p className="font-playfair font-semibold text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
@@ -133,7 +139,7 @@ export default function Home() {
               <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
                 L'Executeur
               </h2>
-              <p className="font-playfair text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px] text-left md:text-right">
+              <p className="font-playfair font-semibold text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px] text-left md:text-right">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
