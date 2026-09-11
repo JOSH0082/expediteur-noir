@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback, CSSProperties, KeyboardEvent, MouseEvent } from 'react';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 
 export interface AccordionGalleryItem {
   image: string;
@@ -163,14 +164,21 @@ const AccordionGallery = ({
     const el = rootRef.current;
     if (!el) return;
 
+    let lastWidth = el.getBoundingClientRect().width; // Simpan lebar awal
+
     const measure = () => {
       const rect = el.getBoundingClientRect();
-      const total = vertical ? rect.height : rect.width;
-      const usable = Math.max(total - gap * (count - 1), 120);
-      const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
-      mediaSizeRef.current = size;
-      el.style.setProperty('--ag-media-size', `${size}px`);
-      applyLayout(!firstRunRef.current);
+      
+      // HANYA hitung ulang kalau LEBAR layarnya berubah (mencegah lag saat scroll di HP)
+      if (rect.width !== lastWidth || firstRunRef.current) {
+        lastWidth = rect.width;
+        const total = vertical ? rect.height : rect.width;
+        const usable = Math.max(total - gap * (count - 1), 120);
+        const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
+        mediaSizeRef.current = size;
+        el.style.setProperty('--ag-media-size', `${size}px`);
+        applyLayout(!firstRunRef.current);
+      }
     };
 
     measure();
@@ -215,16 +223,17 @@ const AccordionGallery = ({
   return (
     <div
       ref={rootRef}
-      className={`flex ${vertical ? 'flex-col' : 'flex-row'} w-full max-w-full [perspective:1400px] max-[520px]:!flex-col max-[520px]:[perspective:none] ${className}`}
+      className={`flex ${vertical ? 'flex-col' : 'flex-row'} w-full max-w-full [perspective:1400px] max-[520px]:!flex-col max-[520px]:!h-[600px] max-[520px]:[perspective:none] ${className}`}
       style={{ gap: `${gap}px`, height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px` }}
       role="list"
       aria-label="Image accordion gallery"
     >
       {items.map((item, i) => {
         const isActive = i === active;
-        const Tag = (item.link ? 'a' : 'div') as 'a';
+        
         return (
-          <Tag
+          // Bungkus utama panel dirubah menjadi 'div', bukan 'a' agar tidak error redirect saat di HP
+          <div
             key={i}
             ref={(el: HTMLElement | null) => {
               panelRefs.current[i] = el;
@@ -237,7 +246,6 @@ const AccordionGallery = ({
                 willChange: 'flex-grow, transform'
               } as CSSProperties
             }
-            href={item.link || undefined}
             onClick={e => handleClick(i, e)}
             onMouseEnter={() => handleEnter(i)}
             onFocus={() => setActive(i)}
@@ -259,65 +267,98 @@ const AccordionGallery = ({
                   willChange: 'transform, filter'
                 }}
               >
-                <img
+                <Image
                   src={item.image}
                   alt={item.alt || item.label || ''}
-                  draggable={false}
-                  className="block h-full w-full select-none object-cover [-webkit-user-drag:none]"
+                  fill
+                  sizes="(max-width: 520px) 100vw, (max-width: 768px) 50vw, 33vw"
+                  className="block select-none object-cover [-webkit-user-drag:none]"
+                  quality={75}
                 />
               </span>
+              
+              {/* Overlay Gradient Asli */}
               <span
                 className="pointer-events-none absolute inset-0"
                 style={{ background: overlayBg }}
                 aria-hidden="true"
               />
+
+              {/* Overlay Solid Baru (Murni khusus mode Vertikal & HP saat tidak terpilih) */}
+              <span
+                className={`pointer-events-none absolute inset-0 transition-opacity duration-700 z-[1] ${
+                  isActive ? 'opacity-0' : 'opacity-100'
+                } ${vertical ? 'block' : 'hidden max-[520px]:block'}`}
+                style={{ backgroundColor: overlayColor }}
+                aria-hidden="true"
+              />
             </span>
+
             {showLabels && (
               <>
+                {/* Teks Label Saat Terekspansi */}
                 <span
                   ref={(el: HTMLElement | null) => {
                     expandedLabelRefs.current[i] = el;
                   }}
-                  className="pointer-events-none absolute bottom-5 left-5 z-[2] flex flex-col items-start gap-1 opacity-0"
+                  // Di HP (max-520px): pindah ke tengah, text rata tengah
+                  className="pointer-events-none absolute bottom-5 left-5 max-[520px]:inset-0 max-[520px]:p-4 z-[2] flex flex-col items-start max-[520px]:items-center max-[520px]:justify-center gap-1 opacity-0"
                   aria-hidden="true"
                 >
                   <span
-                    className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl md:text-3xl font-playfair-display font-semibold tracking-wide"
+                    // Di HP (max-520px): ukuran font disesuaikan jadi text-xl dan bisa turun baris (whitespace-normal)
+                    className="overflow-hidden text-ellipsis whitespace-nowrap max-[520px]:whitespace-normal max-[520px]:text-center text-2xl md:text-3xl font-playfair-display font-semibold tracking-wide max-[520px]:text-xl"
                     style={{ color: textColor }}
                   >
                     {item.label}
                   </span>
-                  {item.subLabel && (
-                    <span
-                      className="overflow-hidden text-ellipsis whitespace-nowrap text-lg md:text-xl font-playfair font-medium tracking-wide"
-                      style={{ color: textColor }}
+                  
+                  {/* Kondisional: Jadikan Link sebagai Button */}
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      onClick={(e) => e.stopPropagation()} 
+                      className={`mt-2 max-[520px]:mt-3 inline-block px-4 py-1.5 text-sm font-sans font-bold rounded-md transition-transform hover:scale-105 active:scale-95 ${isActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                      style={{ backgroundColor: accentColor, color: overlayColor }}
                     >
-                      {item.subLabel}
-                    </span>
+                      {item.subLabel || 'Visit Link'}
+                    </a>
+                  ) : (
+                    item.subLabel && (
+                      <span
+                        className="overflow-hidden text-ellipsis whitespace-nowrap text-lg md:text-xl font-playfair font-medium tracking-wide"
+                        style={{ color: textColor }}
+                      >
+                        {item.subLabel}
+                      </span>
+                    )
                   )}
                 </span>
 
+                {/* Teks Label Saat Tertutup (Dimodifikasi orientasinya) */}
                 <div
                   ref={(el: HTMLElement | null) => {
                     collapsedLabelRefs.current[i] = el;
                   }}
-                  className="pointer-events-none absolute inset-0 flex items-end justify-center pb-12 z-[2]"
+                  className={`pointer-events-none absolute inset-0 flex justify-center z-[2] ${
+                    vertical ? 'items-center pb-0' : 'items-end pb-12 max-[520px]:items-center max-[520px]:pb-0'
+                  }`}
                   aria-hidden="true"
                 >
                   <span
-                    className="whitespace-nowrap text-xl md:text-2xl font-playfair-display font-semibold tracking-wide"
-                    style={{ 
-                      color: textColor,
-                      writingMode: 'vertical-rl',
-                      transform: 'rotate(180deg)'
-                    }}
+                    className={`whitespace-nowrap text-xl md:text-2xl font-playfair-display font-semibold tracking-wide ${
+                      vertical 
+                        ? '' // Normal Horizontal 
+                        : '[writing-mode:vertical-rl] rotate-180 max-[520px]:[writing-mode:horizontal-tb] max-[520px]:rotate-0' 
+                    }`}
+                    style={{ color: textColor }}
                   >
                     {item.label}
                   </span>
                 </div>
               </>
             )}
-          </Tag>
+          </div>
         );
       })}
     </div>

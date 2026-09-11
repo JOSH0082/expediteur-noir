@@ -23,7 +23,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="py-4 md:py-6 flex flex-col gap-14 md:gap-24">
+    <main className="py-4 md:py-6 flex flex-col ">
       {/* Section 1: Hero (Includes Navbar within min-h-screen) */}
       <section className="w-full min-h-screen flex flex-col justify-between relative pb-4 md:pb-6 px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
         {/* Navigation Bar */}
@@ -87,21 +87,21 @@ export default function Home() {
       </section>
 
       {/* Section 2: Joshua Siahaan */}
-      <section className="w-full relative min-h-screen flex items-center justify-center py-12 md:py-24 overflow-hidden px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-12 relative flex flex-col md:flex-row justify-between items-center md:items-stretch min-h-[700px]">
+      <section className="w-full relative min-h-screen flex items-center justify-center py-12 md:py-24 overflow-hidden px-0 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
+        <div className="w-full max-w-7xl mx-auto px-0 md:px-12 relative flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-0 md:items-stretch min-h-[700px]">
           
           {/* Left Area */}
-          <div className="w-full md:w-1/3 flex flex-col justify-between pt-12 md:pt-24 z-10 relative">
-            <div>
-              <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
+          <div className="order-2 sm:order-1 w-full md:w-1/3 flex flex-col justify-between md:pt-24 px-4 sm:px-0 z-10 relative">
+            <div className="md:ml-auto flex flex-col items-start md:items-end border-1 border-accent/15 px-4 py-4 sm:border-0 sm:p-0">
+              <h2 className="font-playfair-display font-bold text-2xl lg:text-6xl text-foreground mb-4">
                 L'Architecte
               </h2>
               <p className="font-playfair font-semibold text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
-            
-            <div className="mt-20 md:mt-auto pb-10">
+
+            <div className="hidden sm:block mt-20 md:mt-auto pb-10">
               <Image
                 src={sextantLogo}
                 alt="Sextant Logo"
@@ -111,9 +111,9 @@ export default function Home() {
           </div>
 
           {/* Center Area */}
-          <div className="w-full md:w-1/3 flex justify-center items-center relative my-16 md:my-0">
+          <div className="order-1 sm:order-2 w-full md:w-1/3 h-128 sm:h-auto flex justify-center items-center relative my-0">
             {/* Name Pattern Background */}
-            <div className="absolute top-0 md:top-10 left-1/2 md:left-24 w-[280px] md:w-[380px] z-0 opacity-90 transform -translate-x-1/2 md:translate-x-0">
+            <div className="absolute top-0 md:-top-20 left-1/2 md:left-24 w-90 md:w-[380px] z-0 opacity-90 transform -translate-x-1/2 md:translate-x-0">
               <Image
                 src={namePattern}
                 alt="Joshua Siahaan Pattern"
@@ -131,12 +131,20 @@ export default function Home() {
                 sizes="(max-width: 768px) 260px, 320px"
               />
             </div>
+
+            <div className="absolute sm:hidden bottom-8 left-8 z-11 p-4 bg-background/50 border border-foreground/15 rounded-full">
+              <Image
+                src={sextantLogo}
+                alt="Sextant Logo"
+                className="w-20 h-auto object-contain"
+              />
+            </div>
           </div>
 
           {/* Right Area */}
-          <div className="w-full md:w-1/3 flex flex-col justify-end pb-12 md:pb-32 z-10 relative">
-            <div className="md:ml-auto flex flex-col items-start md:items-end">
-              <h2 className="font-playfair-display font-bold text-5xl lg:text-6xl text-foreground mb-4">
+          <div className="order-3 w-full md:w-1/3 flex flex-col justify-end pb-12 md:pb-32 px-4 sm:px-0 z-10 relative">
+            <div className="md:ml-auto flex flex-col items-start md:items-end border-1 border-accent/15 px-4 py-4 sm:border-0 sm:p-0">
+              <h2 className="font-playfair-display font-bold text-2xl lg:text-6xl text-foreground mb-4">
                 L'Executeur
               </h2>
               <p className="font-playfair font-semibold text-sm lg:text-base text-foreground/90 leading-relaxed max-w-[320px] text-left md:text-right">
@@ -149,7 +157,7 @@ export default function Home() {
       </section>
 
       {/* Section 3: Da Vincian */}
-      <section className="w-full relative min-h-screen flex flex-col justify-between px-4 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
+      <section className="w-full relative min-h-screen flex flex-col justify-between px-0 md:px-12 lg:px-24 xl:px-32 2xl:px-48">
         <div className="grid grid-cols-1 lg:grid-cols-12 min-h-screen w-full items-stretch">
           {/* Left Column: Leonardo Da Vinci Portrait */}
           <div className="lg:col-span-5 relative w-full min-h-[450px] lg:min-h-full overflow-hidden">
@@ -162,7 +170,6 @@ export default function Home() {
               priority
             />
           </div>
-
           {/* Right Column: Content and Diagrams */}
           <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-6">
             {/* Top Row: Title + Intro Text & Vitruvian Man */}
@@ -178,7 +185,7 @@ export default function Home() {
               </div>
 
               {/* Right side: Vitruvian Man Sketch */}
-              <div className="sm:col-span-5 flex justify-center sm:justify-end items-start">
+              <div className="hidden sm:col-span-5 sm:flex justify-center sm:justify-end items-start">
                 <div className="w-full max-w-[180px] sm:max-w-[220px] lg:max-w-[240px]">
                   <Image
                     src={vitruvianMan}
