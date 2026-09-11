@@ -9,8 +9,9 @@ export default function Navbar({ activeItem = "Home" }: NavbarProps) {
   const navItems = ["Home", "Career", "About", "Articles"];
 
   return (
-    <header className="w-full flex flex-row justify-between items-center py-4">
-      <div className="flex flex-row justify-start items-center gap-4">
+    <header className="w-full flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-center py-4">
+      
+      <div className="flex hidden sm:flex justify-center sm:justify-start items-center gap-4">
         <Image
           src={sextantLogo}
           alt="L'Expediteur Noir Logo"
@@ -21,8 +22,24 @@ export default function Navbar({ activeItem = "Home" }: NavbarProps) {
           L'Expediteur Noir
         </span>
       </div>
-      <nav>
-        <ul className="font-playfair-display text-lg md:text-xl flex flex-row gap-8 md:gap-12 items-center">
+
+      <div className="flex flex-row block sm:hidden justify-center sm:justify-start items-center gap-4">
+        <span className="font-playfair-display text-xl md:text-2xl font-semibold text-foreground tracking-tight">
+          L'Expediteur
+        </span>
+        <Image
+          src={sextantLogo}
+          alt="L'Expediteur Noir Logo"
+          className="h-16 md:h-20 w-auto"
+          priority
+        />
+        <span className="font-playfair-display text-xl md:text-2xl font-semibold text-foreground tracking-tight">
+          Noir
+        </span>
+      </div>
+
+      <nav className="border-y-1 border-accent sm:border-none py-2 sm:p-0 w-full sm:w-fit flex justify-center items-center sm:block">
+        <ul className="font-playfair-display text-sm md:text-xl flex flex-row gap-8 md:gap-12 items-center">
           {navItems.map((item) => (
             <li key={item}>
               <a
